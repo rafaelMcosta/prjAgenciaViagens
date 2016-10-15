@@ -1,5 +1,5 @@
 # prjAgenciaViagens
-Projeto da Disciplina TÃ³picos de Arquitetura de Software sendo desenvolvido no 2Âº semestre de 2016 do curso de Bacharel de Sistemas de InformaÃ§Ã£o da Univesidade Unigranrio.
+Projeto da Disciplina Tópicos de Arquitetura de Software sendo desenvolvido no 2º semestre de 2016 do curso de Bacharel de Sistemas de Informaçãoo da Univesidade Unigranrio.
 
 Alunos: Lucas Luna, Rafael Alves e Vitor Nascimento.
 
