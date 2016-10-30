@@ -1,9 +1,7 @@
 package viewer.desktop;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,28 +11,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import org.joda.time.LocalDate;
-
-import com.toedter.calendar.JDateChooser;
-
-import control.CtrlAlterarPassageiro;
-import control.CtrlIncluirPassageiro;
+import control.CtrlAlterarAeroporto;
+import control.CtrlIncluirAeroporto;
 import control.util.ControleException;
 import model.util.DadosException;
-import viewer.UIPassageiro;
+import viewer.UIAeroporto;
 
-public class JanelaPassageiro extends JFrame implements UIPassageiro {
+public class JanelaAeroporto extends JFrame implements UIAeroporto {
 	//
 	// ATRIBUTOS
 	//
 	/**
-	 * Referência para o controlador do caso de uso Incluir Passageiro
+	 * Referência para o controlador do caso de uso Incluir Aeroporto
 	 */
-	private final CtrlIncluirPassageiro ctrlIncluir;
+	private final CtrlIncluirAeroporto ctrlIncluir;
 	/**
-	 * Referência para o controlador do caso de uso Alterar Passageiro
+	 * Referência para o controlador do caso de uso Alterar Aeroporto
 	 */
-	private final CtrlAlterarPassageiro ctrlAlterar;
+	private final CtrlAlterarAeroporto ctrlAlterar;
 	/**
 	 * Indica se estou fazendo uma operação de inclusão ou alteração
 	 */
@@ -44,22 +38,21 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	 */
 	private JPanel contentPane;
 	/**
-	 * TextField para o nome do Passageiro
+	 * TextField para a sigla do Aeroporto
 	 */
-	private JTextField tfNome;
+	private JTextField tfSigla;
 	/**
-	 * TextField para o cpf do Passageiro
+	 * TextField para a cidade do Aeroporto
 	 */
-	private JTextField tfCpf;
+	private JTextField tfCidade;
 	/**
-	 * TextField para o passaporte do Passageiro
+	 * TextField para o estado do Aeroporto
 	 */
-	private JTextField tfPassaporte;
-
+	private JTextField tfEstado;
 	/**
-	 * DateChooser para a data de nascimento do Passageiro
+	 * TextField para o pais do Aeroporto
 	 */
-	private JDateChooser dtNascimento;
+	private JTextField tfPais;
 
 	/**
 	 * Construtor para inclusão
@@ -68,7 +61,7 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	 * @throws DadosException
 	 * @throws ControleException
 	 */
-	public JanelaPassageiro(CtrlIncluirPassageiro ct) throws DadosException, ControleException {
+	public JanelaAeroporto(CtrlIncluirAeroporto ct) throws DadosException, ControleException {
 		this.ehAlteração = false;
 		this.ctrlIncluir = ct;
 		this.ctrlAlterar = null;
@@ -82,7 +75,7 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	 * @throws DadosException
 	 * @throws ControleException
 	 */
-	public JanelaPassageiro(CtrlAlterarPassageiro ct) throws DadosException, ControleException {
+	public JanelaAeroporto(CtrlAlterarAeroporto ct) throws DadosException, ControleException {
 		this.ehAlteração = true;
 		this.ctrlIncluir = null;
 		this.ctrlAlterar = ct;
@@ -101,41 +94,36 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 11, 70, 14);
-		contentPane.add(lblNome);
+		JLabel lblSigla = new JLabel("Sigla:");
+		lblSigla.setBounds(10, 11, 70, 14);
+		contentPane.add(lblSigla);
 
-		JLabel lblCpf = new JLabel("Cpf:");
-		lblCpf.setBounds(10, 48, 70, 14);
-		contentPane.add(lblCpf);
+		JLabel lblCidade = new JLabel("Cidade:");
+		lblCidade.setBounds(10, 48, 70, 14);
+		contentPane.add(lblCidade);
 
-		JLabel lblPassaporte = new JLabel("Passaporte:");
-		lblPassaporte.setBounds(10, 85, 70, 14);
-		contentPane.add(lblPassaporte);
+		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado.setBounds(10, 85, 70, 14);
+		contentPane.add(lblEstado);
 
-		JLabel lblDtNascimento = new JLabel("Nascimento:");
-		lblDtNascimento.setBounds(10, 127, 80, 14);
-		contentPane.add(lblDtNascimento);
+		JLabel lblPais = new JLabel("Pais:");
+		lblPais.setBounds(10, 127, 80, 14);
+		contentPane.add(lblPais);
 
-		tfNome = new JTextField();
-		tfNome.setBounds(95, 8, 334, 20);
-		contentPane.add(tfNome);
-		tfNome.setColumns(10);
+		tfSigla = new JTextField();
+		tfSigla.setBounds(95, 8, 334, 20);
+		contentPane.add(tfSigla);
+		tfSigla.setColumns(10);
 
-		tfCpf = new JTextField();
-		tfCpf.setBounds(95, 45, 334, 20);
-		contentPane.add(tfCpf);
-		tfCpf.setColumns(10);
+		tfEstado = new JTextField();
+		tfEstado.setBounds(95, 45, 334, 20);
+		contentPane.add(tfEstado);
+		tfEstado.setColumns(10);
 
-		tfPassaporte = new JTextField();
-		tfPassaporte.setBounds(95, 82, 334, 20);
-		contentPane.add(tfPassaporte);
-		tfPassaporte.setColumns(10);
-
-		dtNascimento = new JDateChooser();
-		dtNascimento.setBounds(95, 122, 90, 20);
-		contentPane.add(dtNascimento, BorderLayout.CENTER);
-		dtNascimento.getDateEditor().setEnabled(false);
+		tfPais = new JTextField();
+		tfPais.setBounds(95, 82, 334, 20);
+		contentPane.add(tfPais);
+		tfPais.setColumns(10);
 
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
@@ -159,23 +147,22 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UIPassageiro#solicitarExecucaoDeEfetivacao()
+	 * @see viewer.UIAeroporto#solicitarExecucaoDeEfetivacao()
 	 */
 	@Override
 	public void solicitarExecucaoDeEfetivacao() {
 		try {
 			// Recupero os valores digitados nos textfields
-			String nome = tfNome.getText();
-			LocalDate nascimento = new LocalDate(dtNascimento.getDate());
-			// String dtNascimento = tfDtNascimento.getText();
-			String cpf = tfCpf.getText();
-			String passaporte = tfPassaporte.getText();
+			String sigla = tfSigla.getText();
+			String cidade = tfCidade.getText();
+			String estado = tfEstado.getText();
+			String pais = tfPais.getText();
 			// Verifico qual é a operação que estou fazendo
 			// e notifico ao controlador
 			if (!ehAlteração)
-				ctrlIncluir.incluir(nome, nascimento, cpf, passaporte);
+				ctrlIncluir.incluir(sigla, cidade, estado, pais);
 			else
-				ctrlAlterar.alterar(nome, nascimento, cpf, passaporte);
+				ctrlAlterar.alterar(sigla, cidade, estado, pais);
 		} catch (DadosException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
@@ -191,7 +178,7 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UIPassageiro#solicitarCancelamentoDeEfetivacao()
+	 * @see viewer.UIAeroporto#solicitarCancelamentoDeEfetivacao()
 	 */
 	@Override
 	public void solicitarCancelamentoDeEfetivacao() {
@@ -212,7 +199,7 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UIPassageiro#fechar()
+	 * @see viewer.UIAeroporto#fechar()
 	 */
 	@Override
 	public void exibir() {
@@ -222,7 +209,7 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UIPassageiro#fechar()
+	 * @see viewer.UIAeroporto#fechar()
 	 */
 	@Override
 	public void fechar() {
@@ -232,30 +219,28 @@ public class JanelaPassageiro extends JFrame implements UIPassageiro {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UIPassageiro#limpar()
+	 * @see viewer.UIAeroporto#limpar()
 	 */
 	@Override
 	public void limpar() {
-		this.tfNome.setText(null);
-		// this.tfDtNascimento.setText(null);
-		this.dtNascimento.setDate(new Date());
-		this.tfCpf.setText(null);
-		this.tfPassaporte.setText(null);
+		this.tfSigla.setText(null);
+		this.tfCidade.setText(null);
+		this.tfEstado.setText(null);
+		this.tfPais.setText(null);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UIPassageiro#atualizarCampos(java.lang.String,
+	 * @see viewer.UIAeroporto#atualizarCampos(java.lang.String,
 	 * java.lang.String)
 	 */
 	@Override
-	public void atualizarCampos(String nome, String cpf, String passaporte, Date dtNascimento) {
+	public void atualizarCampos(String sigla, String cidade, String estado, String pais) {
 		limpar();
-		this.tfNome.setText(nome);
-		// this.tfDtNascimento.setText(dtNascimento);
-		this.dtNascimento.setDate(dtNascimento);
-		this.tfCpf.setText(cpf);
-		this.tfPassaporte.setText(passaporte);
+		this.tfSigla.setText(sigla);
+		this.tfCidade.setText(cidade);
+		this.tfEstado.setText(cidade);
+		this.tfPais.setText(estado);
 	}
 }

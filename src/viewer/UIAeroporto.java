@@ -1,8 +1,11 @@
 package viewer;
 
-public interface UIExcluirPassageiro extends UI {
+public interface UIAeroporto extends UI {
 	/**
 	 * Solicita a efetivação da ação de inclusão ou alteração
+	 * 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
 	 */
 	public abstract void solicitarExecucaoDeEfetivacao();
 
@@ -14,5 +17,5 @@ public interface UIExcluirPassageiro extends UI {
 	/**
 	 * Atualiza os campos na UI
 	 */
-	public abstract void atualizarCampos(String nome, String cpf, String passaporte, String dtNascimento);
+	public abstract void atualizarCampos(String sigla, String cidade, String estado, String pais);
 }

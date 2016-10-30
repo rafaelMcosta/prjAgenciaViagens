@@ -15,17 +15,17 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import control.CtrlManterPassageiros;
+import control.CtrlManterAeroportos;
 import control.util.ControleException;
 import model.util.DadosException;
 import model.util.IDadosParaTabela;
-import viewer.UICadastroPassageiros;
+import viewer.UICadastroAeroportos;
 
-public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassageiros {
+public class JanelaCadastroAeroportos extends JFrame implements UICadastroAeroportos {
 	/**
-	 * Referência para o controlador do caso de uso Manter Passageiros
+	 * Referência para o controlador do caso de uso Manter Aerportos
 	 */
-	private CtrlManterPassageiros ctrl;
+	private CtrlManterAeroportos ctrl;
 	/**
 	 * Lista de objetos a serem exibidos
 	 */
@@ -46,8 +46,8 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/**
 	 * Create the frame.
 	 */
-	public JanelaCadastroPassageiros(CtrlManterPassageiros c) {
-		this.ctrl = c;
+	public JanelaCadastroAeroportos(CtrlManterAeroportos a) {
+		this.ctrl = a;
 		this.criarUI();
 	}
 
@@ -56,7 +56,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	 */
 	@Override
 	public void criarUI() {
-		setTitle("Passageiros");
+		setTitle("Aeroportos");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 619, 300);
 		contentPane = new JPanel();
@@ -67,7 +67,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 		JButton btnIncluir = new JButton("Incluir");
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				solicitarExecucaoDeIncluirPassageiro();
+				solicitarExecucaoDeIncluirAeroporto();
 			}
 		});
 		btnIncluir.setBounds(100, 232, 89, 23);
@@ -76,7 +76,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				solicitarExecucaoDeExcluirPassageiro();
+				solicitarExecucaoDeExcluirAeroporto();
 			}
 		});
 		btnExcluir.setBounds(199, 232, 89, 23);
@@ -85,7 +85,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 		JButton btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				solicitarExecucaoDeAlterarPassageiro();
+				solicitarExecucaoDeAlterarAeroporto();
 			}
 		});
 		btnAlterar.setBounds(298, 232, 89, 23);
@@ -94,7 +94,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				solicitarTerminoDeManterPassageiros();
+				solicitarTerminoDeManterAeroportos();
 			}
 		});
 		btnSair.setBounds(397, 232, 89, 23);
@@ -105,7 +105,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 		contentPane.add(scrollPane);
 
 		table = new JTable();
-		this.tableModel = new DefaultTableModel(null, new String[] { "Passageiros" });
+		this.tableModel = new DefaultTableModel(null, new String[] { "Aeroportos" });
 		table.setModel(this.tableModel);
 		scrollPane.setViewportView(table);
 	}
@@ -113,7 +113,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros#exibirObjetos(java.util.List)
+	 * @see viewer.UICadastroAeroportos#exibirObjetos(java.util.List)
 	 */
 	@Override
 	public void exibirObjetos(List<IDadosParaTabela> objetos) {
@@ -136,7 +136,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros#limpar()
+	 * @see viewer.UICadastroAeroportos#limpar()
 	 */
 	@Override
 	public void limpar() {
@@ -147,12 +147,12 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros#solicitarExecucaoDeIncluirPassageiro()
+	 * @see viewer.UICadastroAeroportos#solicitarExecucaoDeIncluirAeroporto()
 	 */
 	@Override
-	public void solicitarExecucaoDeIncluirPassageiro() {
+	public void solicitarExecucaoDeIncluirAeroporto() {
 		try {
-			this.ctrl.iniciarCasoDeUsoIncluirPassageiro();
+			this.ctrl.iniciarCasoDeUsoIncluirAeroporto();
 		} catch (DadosException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
@@ -165,10 +165,10 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros#solicitarExecucaoDeExcluirPassageiro()
+	 * @see viewer.UICadastroAeroportos#solicitarExecucaoDeExcluirAeroporto()
 	 */
 	@Override
-	public void solicitarExecucaoDeExcluirPassageiro() {
+	public void solicitarExecucaoDeExcluirAeroporto() {
 		// Recupero a posição selecionada
 		int pos = table.getSelectedRow();
 		// Se a posição for -1, não há ninguém selecionado. Então cancelo
@@ -177,7 +177,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 			return;
 		// Informo ao controlador para iniciar o processo de exclusão
 		try {
-			ctrl.iniciarCasoDeUsoExcluirPassageiro(this.objetos.get(pos));
+			ctrl.iniciarCasoDeUsoExcluirAeroporto(this.objetos.get(pos));
 		} catch (ControleException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
@@ -190,10 +190,10 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros#solicitarExecucaoDeAlterarPassageiro()
+	 * @see viewer.UICadastroAeroportos#solicitarExecucaoDeAlterarAeroporto()
 	 */
 	@Override
-	public void solicitarExecucaoDeAlterarPassageiro() {
+	public void solicitarExecucaoDeAlterarAeroporto() {
 		// Recupero a posição selecionada
 		int pos = table.getSelectedRow();
 		// Se a posição for -1, não há ninguém selecionado. Então cancelo
@@ -202,7 +202,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 			return;
 		// Informo ao controlador para iniciar o processo de alteração
 		try {
-			ctrl.iniciarCasoDeUsoAlterarPassageiro(this.objetos.get(pos));
+			ctrl.iniciarCasoDeUsoAlterarAeroporto(this.objetos.get(pos));
 		} catch (ControleException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
@@ -215,10 +215,10 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros# solicitarTerminoDeManterPassageiros()
+	 * @see viewer.UICadastroAeroportos# solicitarTerminoDeManterAeroportos()
 	 */
 	@Override
-	public void solicitarTerminoDeManterPassageiros() {
+	public void solicitarTerminoDeManterAeroportos() {
 		try {
 			ctrl.terminar();
 		} catch (ControleException e) {
@@ -230,7 +230,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros#fechar()
+	 * @see viewer.UICadastroAeroportos#fechar()
 	 */
 	@Override
 	public void exibir() {
@@ -240,7 +240,7 @@ public class JanelaCadastroPassageiros extends JFrame implements UICadastroPassa
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see viewer.UICadastroPassageiros#fechar()
+	 * @see viewer.UICadastroAeroportos#fechar()
 	 */
 	@Override
 	public void fechar() {

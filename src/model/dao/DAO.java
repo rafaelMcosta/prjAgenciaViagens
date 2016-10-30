@@ -13,11 +13,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-//import model.Departamento;
-//import model.Empregado;
+import model.Aeroporto;
 import model.ModeloAeronave;
 import model.Passageiro;
-//import model.Projeto;
 import model.util.DadosException;
 import model.util.ErroDeDominio;
 
@@ -63,11 +61,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 		// Recupera os DAOs do sistema
 		IDAOSerializavel daoModeloAeronave = (IDAOSerializavel) DAO.getDAO(ModeloAeronave.class);
 		IDAOSerializavel daoPassageiro = (IDAOSerializavel) DAO.getDAO(Passageiro.class);
-		/*
-		 * IDAOSerializavel daoEmpregado =
-		 * (IDAOSerializavel)DAO.getDAO(Empregado.class); IDAOSerializavel
-		 * daoProjeto = (IDAOSerializavel)DAO.getDAO(Projeto.class);
-		 */
+		IDAOSerializavel daoAeroporto = (IDAOSerializavel) DAO.getDAO(Aeroporto.class);
 
 		//
 		// Recuperação dos objetos serializados no arquivo c:/dados.dat
@@ -80,10 +74,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 			// arquivo
 			daoModeloAeronave.recuperarObjetos(ois);
 			daoPassageiro.recuperarObjetos(ois);
-			/*
-			 * daoEmpregado.recuperarObjetos(ois);
-			 * daoProjeto.recuperarObjetos(ois);
-			 */
+			daoAeroporto.recuperarObjetos(ois);
 			// Fechando o arquivo
 			ois.close();
 		} catch (FileNotFoundException e) {
@@ -102,11 +93,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 		// Recuperando os DAOs do sistema
 		IDAOSerializavel daoModeloAeronave = (IDAOSerializavel) DAO.getDAO(ModeloAeronave.class);
 		IDAOSerializavel daoPassageiro = (IDAOSerializavel) DAO.getDAO(Passageiro.class);
-		/*
-		 * IDAOSerializavel daoEmpregado =
-		 * (IDAOSerializavel)DAO.getDAO(Empregado.class); IDAOSerializavel
-		 * daoProjeto = (IDAOSerializavel)DAO.getDAO(Projeto.class);
-		 */
+		IDAOSerializavel daoAeroporto = (IDAOSerializavel) DAO.getDAO(Aeroporto.class);
 
 		try {
 			// Abrindo o arquivo c:/dados.dat para escrita
@@ -115,9 +102,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 			// Salvando os objetos gerenciados pelos DAOs
 			daoModeloAeronave.salvarObjetos(oos);
 			daoPassageiro.salvarObjetos(oos);
-			/*
-			 * daoEmpregado.salvarObjetos(oos); daoProjeto.salvarObjetos(oos);
-			 */
+			daoAeroporto.salvarObjetos(oos);
 			// Fechando e salvando o arquivo
 			oos.close();
 		} catch (IOException e) {

@@ -1,5 +1,7 @@
 package viewer;
 
+import java.util.Date;
+
 public interface UIPassageiro extends UI{
 	/**
 	 * Solicita a efetivação da ação de inclusão ou alteração
@@ -17,5 +19,5 @@ public interface UIPassageiro extends UI{
 	/**
 	 * Atualiza os campos na UI
 	 */
-	public abstract void atualizarCampos(String nome, String cpf, String passaporte, String dtNascimento);
+	public abstract void atualizarCampos(String nome, String cpf, String passaporte, Date dtNascimento);
 }

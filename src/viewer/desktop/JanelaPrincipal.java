@@ -107,7 +107,27 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 		});
 		btnModelosAeronaves.setBounds(190, 11, 170, 55);
 		contentPane.add(btnModelosAeronaves);
-
+		
+		JButton btnAeroportos = new JButton("Aeroportos");
+		btnAeroportos.setIcon(
+				new ImageIcon(JanelaPrincipal.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
+		btnAeroportos.addActionListener(new ActionListener() {
+			// Método acionado quando o botão "Aeroportos"
+			// for pressionado (Método de Callback).
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					ctrlPrg.iniciarCasoDeUsoManterAeroportos();
+				} catch (ControleException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				} catch (DadosException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
+		btnAeroportos.setBounds(10, 84, 170, 55);
+		contentPane.add(btnAeroportos);
 
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
@@ -117,7 +137,7 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 		});
 		btnSair.setIcon(new ImageIcon(
 				JanelaPrincipal.class.getResource("/com/sun/java/swing/plaf/windows/icons/HardDrive.gif")));
-		btnSair.setBounds(10, 84, 170, 55);
+		btnSair.setBounds(190, 84, 170, 55);
 		contentPane.add(btnSair);
 	}
 

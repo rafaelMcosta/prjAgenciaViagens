@@ -32,17 +32,11 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	 * Referência para o controlador do caso de uso "Manter Passageiros"
 	 */
 	private CtrlManterPassageiros ctrlPassageiros;
-	/*
-		*//**
-			 * Referência para o controlador do caso de uso "Manter Empregados"
-			 */
-	/*
-	 * private CtrlManterEmpregados ctrlEmpregados;
-	 *//**
-		 * Referência para o controlador do caso de uso "Manter Projetos"
-		 *//*
-		 * private CtrlManterProjetos ctrlProjetos;
-		 */
+	/**
+	 * Referência para o controlador do caso de uso "Manter Aeroportos"
+	 */
+	private CtrlManterAeroportos ctrlAeroportos;
+	
 	/**
 	 * Referência para a UI principal do programa
 	 */
@@ -125,23 +119,25 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 			this.ctrlPassageiros.terminar();
 		this.ctrlPassageiros = null;
 	}
-	/*	
-		*//** 
-			* 
-			*/
-	/*
-	 * public void iniciarCasoDeUsoManterProjetos() throws ControleException,
-	 * DadosException{ // Instanciando os controladores de caso de uso do
-	 * sistema this.ctrlProjetos = new CtrlManterProjetos(this); }
-	 * 
-	 *//**
-		*  
-		*//*
-		 * public void terminarCasoDeUsoManterProjetos() throws
-		 * ControleException{ if(this.ctrlProjetos != null)
-		 * this.ctrlProjetos.terminar(); this.ctrlProjetos = null; }
-		 */
 
+	/** 
+	 * 
+	 */
+	public void iniciarCasoDeUsoManterAeroportos() throws ControleException, DadosException {
+		// Instanciando os controladores de caso de uso do sistema
+		this.ctrlAeroportos = new CtrlManterAeroportos(this);
+	}
+
+	/**
+	 *  
+	 */
+	public void terminarCasoDeUsoManterAeroportos() throws ControleException {
+		if (this.ctrlAeroportos != null)
+			this.ctrlAeroportos.terminar();
+		this.ctrlAeroportos = null;
+	}
+	
+	
 	/**
 	 * O método main corresponde ao ponto inicial de execução de um programa em
 	 * Java.
