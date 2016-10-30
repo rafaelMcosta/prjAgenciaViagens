@@ -16,6 +16,7 @@ import java.util.TreeSet;
 //import model.Departamento;
 //import model.Empregado;
 import model.ModeloAeronave;
+import model.Passageiro;
 //import model.Projeto;
 import model.util.DadosException;
 import model.util.ErroDeDominio;
@@ -61,6 +62,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 	public static void inicializarDAOs() {
 		// Recupera os DAOs do sistema
 		IDAOSerializavel daoModeloAeronave = (IDAOSerializavel) DAO.getDAO(ModeloAeronave.class);
+		IDAOSerializavel daoPassageiro = (IDAOSerializavel) DAO.getDAO(Passageiro.class);
 		/*
 		 * IDAOSerializavel daoEmpregado =
 		 * (IDAOSerializavel)DAO.getDAO(Empregado.class); IDAOSerializavel
@@ -77,6 +79,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 			// Solicitação para os DAOs gerenciarem os objetos recuperados do
 			// arquivo
 			daoModeloAeronave.recuperarObjetos(ois);
+			daoPassageiro.recuperarObjetos(ois);
 			/*
 			 * daoEmpregado.recuperarObjetos(ois);
 			 * daoProjeto.recuperarObjetos(ois);
@@ -98,6 +101,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 	public static void fecharDAOs() {
 		// Recuperando os DAOs do sistema
 		IDAOSerializavel daoModeloAeronave = (IDAOSerializavel) DAO.getDAO(ModeloAeronave.class);
+		IDAOSerializavel daoPassageiro = (IDAOSerializavel) DAO.getDAO(Passageiro.class);
 		/*
 		 * IDAOSerializavel daoEmpregado =
 		 * (IDAOSerializavel)DAO.getDAO(Empregado.class); IDAOSerializavel
@@ -110,6 +114,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			// Salvando os objetos gerenciados pelos DAOs
 			daoModeloAeronave.salvarObjetos(oos);
+			daoPassageiro.salvarObjetos(oos);
 			/*
 			 * daoEmpregado.salvarObjetos(oos); daoProjeto.salvarObjetos(oos);
 			 */

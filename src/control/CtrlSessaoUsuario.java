@@ -10,6 +10,7 @@ import control.util.ICtrlCasoDeUso;
 
 /**
  * Este é o controlador que gerencia a execução do meu programa.
+ * 
  * @author Alessandro Cerqueira
  */
 public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
@@ -19,120 +20,132 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	// O controlador do programa deve ter um atributo para
 	// cada controlador de caso de uso do programa.
 	//
-	// Também o controlador do programa deve ter um atributo 
+	// Também o controlador do programa deve ter um atributo
 	// para referenciar a janela principal do programa.
 	//
 
 	/**
 	 * Referência para o controlador do caso de uso "Manter ModelosAeronaves"
 	 */
-	private CtrlManterModelosAeronaves 	ctrlModelosAeronaves;
-/*
-	*//**
-	 * Referência para o controlador do caso de uso "Manter Empregados"
-	 *//*
-	private CtrlManterEmpregados    	ctrlEmpregados;
-	*//**
-	 * Referência para o controlador do caso de uso "Manter Projetos"
-	 *//*
-	private CtrlManterProjetos    		ctrlProjetos;
-*/
+	private CtrlManterModelosAeronaves ctrlModelosAeronaves;
+	/**
+	 * Referência para o controlador do caso de uso "Manter Passageiros"
+	 */
+	private CtrlManterPassageiros ctrlPassageiros;
+	/*
+		*//**
+			 * Referência para o controlador do caso de uso "Manter Empregados"
+			 */
+	/*
+	 * private CtrlManterEmpregados ctrlEmpregados;
+	 *//**
+		 * Referência para o controlador do caso de uso "Manter Projetos"
+		 *//*
+		 * private CtrlManterProjetos ctrlProjetos;
+		 */
 	/**
 	 * Referência para a UI principal do programa
 	 */
-	private UIPrincipal          	uiPrincipal;	
-	
+	private UIPrincipal uiPrincipal;
+
 	//
 	// MÉTODOS
 	//
 	/**
 	 * Construtor do CtrlPrograma
 	 */
-	public CtrlSessaoUsuario(){
+	public CtrlSessaoUsuario() {
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controle.ICtrlCasoDeUso#iniciar()
 	 */
 	@Override
 	public void iniciar() {
-		// Cria e apresenta a janela principal. Observe que não estamos instanciando um objeto JanelaPrincipal 
-		// diretamente; ou seja, não estamos fazendo "this.uiPrincipal = new JanelaPrincipal(this);".
-		// Estamos utilizando o método estático "obterViewer" para retornar qual é a implementação
+		// Cria e apresenta a janela principal. Observe que não estamos
+		// instanciando um objeto JanelaPrincipal
+		// diretamente; ou seja, não estamos fazendo "this.uiPrincipal = new
+		// JanelaPrincipal(this);".
+		// Estamos utilizando o método estático "obterViewer" para retornar qual
+		// é a implementação
 		// de UIPrincipal que iremos utilizar.
-		this.uiPrincipal = (UIPrincipal)ViewerManager.obterViewer(this, UIPrincipal.class);
+		this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this, UIPrincipal.class);
 
 		// Inicializa os DAOs
 		DAO.inicializarDAOs();
-		
+
 		// Solicita a exibição da uiPrincipal
 		this.uiPrincipal.exibir();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see controle.ICtrlCasoDeUso#terminar()
 	 */
 	@Override
-	public void terminar(){
+	public void terminar() {
 		// Encerra os DAOs
 		DAO.fecharDAOs();
 		// Método estático da classe System que encerra o programa
 		System.exit(0);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void iniciarCasoDeUsoManterModelosAeronaves() throws ControleException, DadosException {
 		this.ctrlModelosAeronaves = new CtrlManterModelosAeronaves(this);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void terminarCasoDeUsoManterModelosAeronaves() throws ControleException {
-		if(this.ctrlModelosAeronaves != null)
+		if (this.ctrlModelosAeronaves != null)
 			this.ctrlModelosAeronaves.terminar();
 		this.ctrlModelosAeronaves = null;
 	}
-/*
-	*//** 
+
+	/** 
 	 * 
-	 *//*
-	public void iniciarCasoDeUsoManterEmpregados() throws ControleException, DadosException{
+	 */
+	public void iniciarCasoDeUsoManterPassageiros() throws ControleException, DadosException {
 		// Instanciando os controladores de caso de uso do sistema
-		this.ctrlEmpregados = new CtrlManterEmpregados(this);
+		this.ctrlPassageiros = new CtrlManterPassageiros(this);
 	}
-	
-	*//**
-	 *  
-	 *//*
-	public void terminarCasoDeUsoManterEmpregados() throws ControleException{
-		if(this.ctrlEmpregados != null)
-			this.ctrlEmpregados.terminar();
-		this.ctrlEmpregados = null;
-	}
-	
-	*//** 
-	 * 
-	 *//*
-	public void iniciarCasoDeUsoManterProjetos() throws ControleException, DadosException{
-		// Instanciando os controladores de caso de uso do sistema
-		this.ctrlProjetos = new CtrlManterProjetos(this);
-	}
-	
-	*//**
-	 *  
-	 *//*
-	public void terminarCasoDeUsoManterProjetos() throws ControleException{
-		if(this.ctrlProjetos != null)
-			this.ctrlProjetos.terminar();
-		this.ctrlProjetos = null;
-	}
-*/	
+
 	/**
-	 * O método main corresponde ao ponto inicial de execução
-	 * de um programa em Java.
+	 *  
+	 */
+	public void terminarCasoDeUsoManterPassageiros() throws ControleException {
+		if (this.ctrlPassageiros != null)
+			this.ctrlPassageiros.terminar();
+		this.ctrlPassageiros = null;
+	}
+	/*	
+		*//** 
+			* 
+			*/
+	/*
+	 * public void iniciarCasoDeUsoManterProjetos() throws ControleException,
+	 * DadosException{ // Instanciando os controladores de caso de uso do
+	 * sistema this.ctrlProjetos = new CtrlManterProjetos(this); }
+	 * 
+	 *//**
+		*  
+		*//*
+		 * public void terminarCasoDeUsoManterProjetos() throws
+		 * ControleException{ if(this.ctrlProjetos != null)
+		 * this.ctrlProjetos.terminar(); this.ctrlProjetos = null; }
+		 */
+
+	/**
+	 * O método main corresponde ao ponto inicial de execução de um programa em
+	 * Java.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) throws ControleException, DadosException {

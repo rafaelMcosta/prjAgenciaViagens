@@ -5,15 +5,15 @@ import java.util.List;
 import control.util.ControleException;
 import control.util.ErroDeControle;
 import control.util.ICtrlCasoDeUso;
-import model.ModeloAeronave;
+import model.Passageiro;
 import model.dao.DAO;
 import model.dao.IDAO;
 import model.util.DadosException;
 import model.util.IDadosParaTabela;
-import viewer.UICadastroModelosAeronaves;
+import viewer.UICadastroPassageiros;
 import viewer.ViewerManager;
 
-public class CtrlManterModelosAeronaves implements ICtrlCasoDeUso {
+public class CtrlManterPassageiros implements ICtrlCasoDeUso{
 	//
 	// ATRIBUTOS
 	//
@@ -37,29 +37,29 @@ public class CtrlManterModelosAeronaves implements ICtrlCasoDeUso {
 	private final CtrlSessaoUsuario ctrlPrg;
 
 	/**
-	 * Referência para o controlador do caso de uso Incluir ModeloAeronave.
+	 * Referência para o controlador do caso de uso Incluir Passageiro.
 	 */
-	private CtrlIncluirModeloAeronave ctrlIncluirModeloAeronave;
+	private CtrlIncluirPassageiro ctrlIncluirPassageiro;
 
 	/**
-	 * Referência para o controlador do caso de uso Alterar ModeloAeronave.
+	 * Referência para o controlador do caso de uso Alterar Passageiro.
 	 */
-	private CtrlAlterarModeloAeronave ctrlAlterarModeloAeronave;
+	private CtrlAlterarPassageiro ctrlAlterarPassageiro;
 
 	/**
-	 * Referência para o controlador do caso de uso Excluir ModeloAeronave.
+	 * Referência para o controlador do caso de uso Excluir Passageiro.
 	 */
-	private CtrlExcluirModeloAeronave ctrlExcluirModeloAeronave;
+	private CtrlExcluirPassageiro ctrlExcluirPassageiro;
 
 	/**
-	 * Referência para a janela do cadastro de ModeloAeronave
+	 * Referência para a janela do cadastro de Passageiro
 	 */
-	private UICadastroModelosAeronaves uiCadastro;
+	private UICadastroPassageiros uiCadastro;
 
 	/**
-	 * Referência para o objeto DaoModeloAeronave
+	 * Referência para o objeto DaoPassageiro
 	 */
-	private IDAO<ModeloAeronave> dao = (IDAO<ModeloAeronave>) DAO.getDAO(ModeloAeronave.class);
+	private IDAO<Passageiro> dao = (IDAO<Passageiro>) DAO.getDAO(Passageiro.class);
 
 	/**
 	 * Atributo que indica qual operação está em curso
@@ -71,9 +71,9 @@ public class CtrlManterModelosAeronaves implements ICtrlCasoDeUso {
 	//
 
 	/**
-	 * Construtor da classe CtrlManterModeloAeronave
+	 * Construtor da classe CtrlManterPassageiros
 	 */
-	public CtrlManterModelosAeronaves(CtrlSessaoUsuario p) throws ControleException, DadosException {
+	public CtrlManterPassageiros(CtrlSessaoUsuario p) throws ControleException, DadosException {
 		// Guardo a referência para o controlador do programa
 		this.ctrlPrg = p;
 		// Iniciando o caso de uso
@@ -81,16 +81,16 @@ public class CtrlManterModelosAeronaves implements ICtrlCasoDeUso {
 	}
 
 	/**
-	 * Inicia o caso de uso "Manter ModelosAeronaves"
+	 * Inicia o caso de uso "Manter Passageiros"
 	 */
 	public void iniciar() throws ControleException, DadosException {
-		// Recupero os objetos ModeloAeronave do DAO
-		this.dao = (IDAO<ModeloAeronave>) DAO.getDAO(ModeloAeronave.class);
-		List<IDadosParaTabela> modelos = dao.getListaObjs();
+		// Recupero os objetos Passageiro do DAO
+		this.dao = (IDAO<Passageiro>) DAO.getDAO(Passageiro.class);
+		List<IDadosParaTabela> passageiros = dao.getListaObjs();
 		// Crio e abro a janela de cadastro
-		this.uiCadastro = (UICadastroModelosAeronaves) ViewerManager.obterViewer(this, UICadastroModelosAeronaves.class);
+		this.uiCadastro = (UICadastroPassageiros) ViewerManager.obterViewer(this, UICadastroPassageiros.class);
 		// Solicito à interface que carregue os objetos
-		this.uiCadastro.exibirObjetos(modelos);
+		this.uiCadastro.exibirObjetos(passageiros);
 		// Solicito à interface que carregue os objetos
 		this.uiCadastro.exibir();
 		// Informo que o controlador de caso de uso está disponível
@@ -108,90 +108,90 @@ public class CtrlManterModelosAeronaves implements ICtrlCasoDeUso {
 		// Informo que o controlador está encerrado
 		this.setStatus(Status.ENCERRADO);
 		// Notifico ao controlador do programa o término deste caso de uso
-		this.ctrlPrg.terminarCasoDeUsoManterModelosAeronaves();
+		this.ctrlPrg.terminarCasoDeUsoManterPassageiros();
 	}
 
 	/** 
 	 * 
 	 */
-	public void iniciarCasoDeUsoIncluirModeloAeronave() throws DadosException, ControleException {
+	public void iniciarCasoDeUsoIncluirPassageiro() throws DadosException, ControleException {
 		// Indico que o controlador de caso de uso está incluindo
 		this.setStatus(Status.INCLUINDO);
-		// Abro a janela de departamento
-		this.ctrlIncluirModeloAeronave = new CtrlIncluirModeloAeronave(this);
+		// Abro a janela de passageiro
+		this.ctrlIncluirPassageiro = new CtrlIncluirPassageiro(this);
 	}
 
 	/**
 	 *  
 	 */
-	public void terminarCasoDeUsoIncluirModeloAeronave() throws DadosException, ControleException {
-		if (this.ctrlIncluirModeloAeronave != null)
-			this.ctrlIncluirModeloAeronave.terminar();
-		this.ctrlIncluirModeloAeronave = null;
+	public void terminarCasoDeUsoIncluirPassageiro() throws DadosException, ControleException {
+		if (this.ctrlIncluirPassageiro != null)
+			this.ctrlIncluirPassageiro.terminar();
+		this.ctrlIncluirPassageiro = null;
 		// Indico que o controlador de caso de uso está disponível
 		this.setStatus(Status.DISPONIVEL);
 		// Recupero os objetos ModeloAeronave do DAO
-		List<IDadosParaTabela> modelos = dao.getListaObjs();
+		List<IDadosParaTabela> passageiros = dao.getListaObjs();
 		// Solicito a atualização da interface após as ações de inclusão
-		this.uiCadastro.exibirObjetos(modelos);
+		this.uiCadastro.exibirObjetos(passageiros);
 		this.uiCadastro.exibir();
 	}
 
 	/** 
 	 * 
 	 */
-	public void iniciarCasoDeUsoAlterarModeloAeronave(IDadosParaTabela selecionado)
+	public void iniciarCasoDeUsoAlterarPassageiro(IDadosParaTabela selecionado)
 			throws DadosException, ControleException {
 		// Indico que o controlador de caso de uso está incluindo
 		this.setStatus(Status.ALTERANDO);
 		// Promovo o casting
-		ModeloAeronave m = (ModeloAeronave) selecionado;
-		// Abro a janela de ModeloAeronave
-		this.ctrlAlterarModeloAeronave = new CtrlAlterarModeloAeronave(this, m);
+		Passageiro p = (Passageiro) selecionado;
+		// Abro a janela de Passageiro
+		this.ctrlAlterarPassageiro = new CtrlAlterarPassageiro(this, p);
 	}
 
 	/**
 	 *  
 	 */
-	public void terminarCasoDeUsoAlterarModeloAeronave() throws DadosException, ControleException {
-		if (this.ctrlAlterarModeloAeronave != null)
-			this.ctrlAlterarModeloAeronave.terminar();
-		this.ctrlAlterarModeloAeronave = null;
+	public void terminarCasoDeUsoAlterarPassageiro() throws DadosException, ControleException {
+		if (this.ctrlAlterarPassageiro != null)
+			this.ctrlAlterarPassageiro.terminar();
+		this.ctrlAlterarPassageiro = null;
 		// Indico que o controlador de caso de uso está disponível
 		this.setStatus(Status.DISPONIVEL);
-		// Recupero os objetos ModeloAeronave do DAO
-		List<IDadosParaTabela> modelos = dao.getListaObjs();
+		// Recupero os objetos Passageiro do DAO
+		List<IDadosParaTabela> passageiros = dao.getListaObjs();
 		// Solicito a atualização da interface após as ações de inclusão
-		this.uiCadastro.exibirObjetos(modelos);
+		this.uiCadastro.exibirObjetos(passageiros);
 		this.uiCadastro.exibir();
 	}
 
 	/** 
 	 * 
 	 */
-	public void iniciarCasoDeUsoExcluirModeloAeronave(IDadosParaTabela selecionado)
+	public void iniciarCasoDeUsoExcluirPassageiro(IDadosParaTabela selecionado)
 			throws DadosException, ControleException {
 		// Indico que o controlador de caso de uso está incluindo
 		this.setStatus(Status.EXCLUINDO);
 		// Promovo o casting
-		ModeloAeronave m = (ModeloAeronave) selecionado;
-		// Abro a janela de departamento
-		this.ctrlExcluirModeloAeronave = new CtrlExcluirModeloAeronave(this, m);
+		Passageiro p = (Passageiro) selecionado;
+		// Abro a janela de Passageiro
+		this.ctrlExcluirPassageiro = new CtrlExcluirPassageiro(this, p);
 	}
 
 	/**
 	 *  
 	 */
-	public void terminarCasoDeUsoExcluirModeloAeronave() throws DadosException, ControleException {
-		if (this.ctrlExcluirModeloAeronave != null)
-			this.ctrlExcluirModeloAeronave.terminar();
-		this.ctrlExcluirModeloAeronave = null;
+	public void terminarCasoDeUsoExcluirPassageiro() throws DadosException, ControleException {
+		if (this.ctrlExcluirPassageiro != null)
+			this.ctrlExcluirPassageiro.terminar();
+		this.ctrlExcluirPassageiro = null;
 		// Indico que o controlador de caso de uso está disponível
 		this.setStatus(Status.DISPONIVEL);
-		// Recupero os objetos Departamento do DAO
-		List<IDadosParaTabela> modelos = dao.getListaObjs();
+		// Recupero os objetos Passageiro do DAO
+		List<IDadosParaTabela> passageiros = dao.getListaObjs();
 		// Solicito a atualização da interface após as ações de inclusão
-		this.uiCadastro.exibirObjetos(modelos);
+		this.uiCadastro.exibirObjetos(passageiros);
 		this.uiCadastro.exibir();
 	}
 

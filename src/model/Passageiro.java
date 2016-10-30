@@ -220,7 +220,7 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 			throw new DadosException(new ErroDeDominio(9, Passageiro.class, "O Passaporte não pode ser nulo!"));
 		if (passaporte.length() != TAMANHO_PASSAPORTE)
 			throw new DadosException(
-					new ErroDeDominio(10, Passageiro.class, "O Passaporte não está com todos os seus digitos!"));
+					new ErroDeDominio(10, Passageiro.class, "O Passaporte deve possuir 9 digítos!"));
 		for (int i = 0; i < passaporte.length(); i++) {
 			if (!Character.isLetterOrDigit(passaporte.charAt(i)))
 				throw new DadosException(new ErroDeDominio(11, Passageiro.class,
@@ -260,7 +260,7 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 	 */
 	@Override
 	public String[] getCamposDeTabela() {
-		return new String[] { "Nome", "Data de Nascimento", "Cpf", "Passaporte", "#Passagens" };
+		return new String[] { "Nome", "Nascimento", "Cpf", "Passaporte", "#Passagens" };
 	}
 
 	/**

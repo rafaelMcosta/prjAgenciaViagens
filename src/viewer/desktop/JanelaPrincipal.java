@@ -58,16 +58,39 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 	public void criarUI() {
 		setTitle("Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 200, 188);
+		setBounds(100, 100, 400, 188);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton btnModeloAeronave = new JButton("Modelo Aeronave");
-		btnModeloAeronave.setIcon(
+		JButton btnPassageiros = new JButton("Passageiros");
+		btnPassageiros.setIcon(
 				new ImageIcon(JanelaPrincipal.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
-		btnModeloAeronave.addActionListener(new ActionListener() {
+		btnPassageiros.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					ctrlPrg.iniciarCasoDeUsoManterPassageiros();
+				} catch (ControleException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				} catch (DadosException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		btnPassageiros.setBounds(10, 11, 170, 55);
+		contentPane.add(btnPassageiros);
+
+		JButton btnModelosAeronaves = new JButton("Modelos Aeronaves");
+		btnModelosAeronaves.setIcon(
+				new ImageIcon(JanelaPrincipal.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
+		btnModelosAeronaves.addActionListener(new ActionListener() {
 			// Método acionado quando o botão "Modelo Aeronave"
 			// for pressionado (Método de Callback).
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,8 +105,9 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 				}
 			}
 		});
-		btnModeloAeronave.setBounds(10, 11, 160, 55);
-		contentPane.add(btnModeloAeronave);
+		btnModelosAeronaves.setBounds(190, 11, 170, 55);
+		contentPane.add(btnModelosAeronaves);
+
 
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
@@ -93,7 +117,7 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 		});
 		btnSair.setIcon(new ImageIcon(
 				JanelaPrincipal.class.getResource("/com/sun/java/swing/plaf/windows/icons/HardDrive.gif")));
-		btnSair.setBounds(10, 84, 160, 55);
+		btnSair.setBounds(10, 84, 170, 55);
 		contentPane.add(btnSair);
 	}
 
