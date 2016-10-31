@@ -86,7 +86,7 @@ public class JanelaAeroporto extends JFrame implements UIAeroporto {
 	 * Criação da UI
 	 */
 	public void criarUI() {
-		setTitle("Passageiro");
+		setTitle("Aeroporto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 250);
 		contentPane = new JPanel();
@@ -114,14 +114,19 @@ public class JanelaAeroporto extends JFrame implements UIAeroporto {
 		tfSigla.setBounds(95, 8, 334, 20);
 		contentPane.add(tfSigla);
 		tfSigla.setColumns(10);
+		
+		tfCidade = new JTextField();
+		tfCidade.setBounds(95, 45, 334, 20);
+		contentPane.add(tfCidade);
+		tfCidade.setColumns(10);
 
 		tfEstado = new JTextField();
-		tfEstado.setBounds(95, 45, 334, 20);
+		tfEstado.setBounds(95, 82, 334, 20);
 		contentPane.add(tfEstado);
 		tfEstado.setColumns(10);
 
 		tfPais = new JTextField();
-		tfPais.setBounds(95, 82, 334, 20);
+		tfPais.setBounds(95, 119, 334, 20);
 		contentPane.add(tfPais);
 		tfPais.setColumns(10);
 
