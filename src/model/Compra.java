@@ -13,7 +13,7 @@ import model.util.IDadosParaTabela;
 import model.util.RegraDeDominio;
 
 /**
- * Classe que representa uma compra. Atributos: ordem, data, valorTotal, usuario
+ * Classe que representa uma compra. Atributos: ordem, data, valorTotal, funcionario
  * (que efetua a compra) e uma Collection de passagens.
  * 
  * @author RAFAEL
@@ -28,7 +28,7 @@ public class Compra implements IDados, Comparable<Compra>, Serializable, IDadosP
 	private String ordem;
 	private LocalDate data;
 	private double valorTotal;
-	private Usuario usuario;
+	private Funcionario funcionario;
 	private Set<Passagem> passagens;
 
 	/**
@@ -39,7 +39,7 @@ public class Compra implements IDados, Comparable<Compra>, Serializable, IDadosP
 	}
 
 	/**
-	 * Construtor da compra que recebe uma ordem, a data da compra, o usuario
+	 * Construtor da compra que recebe uma ordem, a data da compra, o funcionario
 	 * que está realizando e a passagem escolhida. Pode disparar DadosException.
 	 * 
 	 * @param ordem
@@ -47,15 +47,15 @@ public class Compra implements IDados, Comparable<Compra>, Serializable, IDadosP
 	 * @param data
 	 *            - recebe uma LocalDate (da lib joda-time) que será a data de
 	 *            compra.
-	 * @param usuario
-	 *            - recebe um objeto Usuario que será o usuário da compra.
+	 * @param funcionario
+	 *            - recebe um objeto Funcionario que será o usuário da compra.
 	 * @throws DadosException
 	 */
-	public Compra(String ordem, LocalDate data, Usuario usuario) throws DadosException {
+	public Compra(String ordem, LocalDate data, Funcionario funcionario) throws DadosException {
 		super();
 		this.setOrdem(ordem);
 		this.setData(data);
-		this.setUsuario(usuario);
+		this.setFuncionario(funcionario);
 		this.passagens = new TreeSet<Passagem>();
 	}
 
@@ -107,30 +107,30 @@ public class Compra implements IDados, Comparable<Compra>, Serializable, IDadosP
 	 * Compra.validarValorTotal(valorTotal); this.valorTotal = valorTotal; }
 	 */
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
 
 	/**
 	 * Adicionar, alterar ou remover um usuário da compra. Para adicionar e
-	 * alterar, passe um objeto usuario. Para excluir passe null. Poderá ser
+	 * alterar, passe um objeto funcionario. Para excluir passe null. Poderá ser
 	 * disparada uma DadosException.
 	 * 
 	 * @param novo
-	 *            - um objeto do tipo Usuario ou null para excluir o usuario.
+	 *            - um objeto do tipo Funcionario ou null para excluir o funcionario.
 	 * @throws DadosException
 	 */
-	public void setUsuario(Usuario novo) throws DadosException {
-		if (this.usuario == novo)
+	public void setFuncionario(Funcionario novo) throws DadosException {
+		if (this.funcionario == novo)
 			return;
 		if (novo == null) {
-			Usuario antigo = this.usuario;
-			this.usuario = null;
+			Funcionario antigo = this.funcionario;
+			this.funcionario = null;
 			antigo.removeCompra(this);
 		} else {
-			if (this.usuario != null)
-				this.usuario.removeCompra(this);
-			this.usuario = novo;
+			if (this.funcionario != null)
+				this.funcionario.removeCompra(this);
+			this.funcionario = novo;
 			novo.addCompra(this);
 		}
 	}
@@ -225,7 +225,7 @@ public class Compra implements IDados, Comparable<Compra>, Serializable, IDadosP
 	 */
 	@Override
 	public String[] getCamposDeTabela() {
-		return new String[] { "Ordem", "Data", "Valor Total", "Usuario", "#Passagens" };
+		return new String[] { "Ordem", "Data", "Valor Total", "Funcionario", "#Passagens" };
 	}
 
 	/**
@@ -234,7 +234,7 @@ public class Compra implements IDados, Comparable<Compra>, Serializable, IDadosP
 	 */
 	@Override
 	public Object[] getDadosParaTabela() {
-		String loginUsuario = this.usuario.getLogin() == null ? "Sem usuário" : this.usuario.getLogin();
+		String loginUsuario = this.funcionario.getLogin() == null ? "Sem usuário" : this.funcionario.getLogin();
 		return new Object[] { this.ordem, this.data, this.getValorTotal(), loginUsuario, this.passagens.size() };
 	}
 }

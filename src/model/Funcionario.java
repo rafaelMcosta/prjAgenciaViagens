@@ -17,7 +17,7 @@ import model.util.RegraDeDominio;
  * @author RAFAEL
  *
  */
-public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDadosParaTabela {
+public class Funcionario implements IDados, Comparable<Funcionario>, Serializable, IDadosParaTabela {
 
 	// CONSTANTES
 	public static final int TAMANHO_MIN_LOGIN = 4;
@@ -34,7 +34,7 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	/**
 	 * Construtor vazio
 	 */
-	public Usuario() {
+	public Funcionario() {
 		super();
 	}
 
@@ -50,7 +50,7 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	 *            - recebe uma String que será o cpf do usuário.
 	 * @throws DadosException
 	 */
-	public Usuario(String login, String senha, String cpf) throws DadosException {
+	public Funcionario(String login, String senha, String cpf) throws DadosException {
 		super();
 		this.setLogin(login);
 		this.setSenha(senha);
@@ -60,12 +60,12 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 
 	@Override
 	public String toString() {
-		return "Usuario [login=" + login + ", senha=" + senha + ", cpf=" + cpf + "]";
+		return "Funcionario [login=" + login + ", senha=" + senha + ", cpf=" + cpf + "]";
 	}
 
 	@Override
-	public int compareTo(Usuario usuario) {
-		return this.getLogin().compareTo(usuario.getLogin());
+	public int compareTo(Funcionario funcionario) {
+		return this.getLogin().compareTo(funcionario.getLogin());
 	}
 
 	public String getLogin() {
@@ -73,7 +73,7 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	}
 
 	public void setLogin(String login) throws DadosException {
-		Usuario.validarLogin(login);
+		Funcionario.validarLogin(login);
 		this.login = login;
 	}
 
@@ -82,7 +82,7 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	}
 
 	public void setSenha(String senha) throws DadosException {
-		Usuario.validarSenha(senha);
+		Funcionario.validarSenha(senha);
 		this.senha = senha;
 	}
 
@@ -91,7 +91,7 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	}
 
 	public void setCpf(String cpf) throws DadosException {
-		Usuario.validarCpf(cpf);
+		Funcionario.validarCpf(cpf);
 		this.cpf = cpf;
 	}
 
@@ -108,10 +108,10 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	 * @throws DadosException
 	 */
 	public void addCompra(Compra compra) throws DadosException {
-		Usuario.validarCompra(compra);
+		Funcionario.validarCompra(compra);
 		if (!this.compras.contains(compra)) {
 			this.compras.add(compra);
-			compra.setUsuario(this);
+			compra.setFuncionario(this);
 		}
 	}
 
@@ -124,10 +124,10 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	 * @throws DadosException
 	 */
 	public void removeCompra(Compra compra) throws DadosException {
-		Usuario.validarCompra(compra);
+		Funcionario.validarCompra(compra);
 		if (this.compras.contains(compra)) {
 			this.compras.remove(compra);
-			compra.setUsuario(null);
+			compra.setFuncionario(null);
 		}
 	}
 
@@ -135,20 +135,20 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 	private static void validarLogin(String l) throws DadosException {
 		if ((l == null) || (l.length() < TAMANHO_MIN_LOGIN))
 			throw new DadosException(
-					new ErroDeDominio(1, Usuario.class, "Login deve conter pelo menos quatro caracteres."));
+					new ErroDeDominio(1, Funcionario.class, "Login deve conter pelo menos quatro caracteres."));
 		if (l.length() > TAMANHO_MAX_LOGIN)
 			throw new DadosException(
-					new ErroDeDominio(2, Usuario.class, "Login não pode conter mais que 20 caracteres."));
+					new ErroDeDominio(2, Funcionario.class, "Login não pode conter mais que 20 caracteres."));
 	}
 
 	@RegraDeDominio
 	private static void validarSenha(String s) throws DadosException {
 		if ((s == null) || (s.length() < TAMANHO_MIN_SENHA))
 			throw new DadosException(
-					new ErroDeDominio(3, Usuario.class, "Senha deve conter pelo menos oito caracteres."));
+					new ErroDeDominio(3, Funcionario.class, "Senha deve conter pelo menos oito caracteres."));
 		if (s.length() > TAMANHO_MAX_SENHA)
 			throw new DadosException(
-					new ErroDeDominio(4, Usuario.class, "Senha não pode conter mais que 16 caracteres."));
+					new ErroDeDominio(4, Funcionario.class, "Senha não pode conter mais que 16 caracteres."));
 	}
 
 	@RegraDeDominio
@@ -156,13 +156,13 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 		cpf = cpf.replace("-", "");
 		cpf = cpf.replace(".", "");
 		if (cpf == null || cpf.length() == 0)
-			throw new DadosException(new ErroDeDominio(5, Usuario.class, "O CPF não pode ser nulo!"));
+			throw new DadosException(new ErroDeDominio(5, Funcionario.class, "O CPF não pode ser nulo!"));
 		if (cpf.length() != TAMANHO_CPF)
-			throw new DadosException(new ErroDeDominio(6, Usuario.class, "O CPF não está com todos os seus digitos!"));
+			throw new DadosException(new ErroDeDominio(6, Funcionario.class, "O CPF não está com todos os seus digitos!"));
 		for (int i = 0; i < cpf.length(); i++)
 			if (!Character.isDigit(cpf.charAt(i)))
 				throw new DadosException(
-						new ErroDeDominio(7, Usuario.class, "O CPF na posição " + (i + 1) + " não é numérico!"));
+						new ErroDeDominio(7, Funcionario.class, "O CPF na posição " + (i + 1) + " não é numérico!"));
 
 		boolean rep = false;
 		for (int i = 1; i < cpf.length(); i++) {
@@ -174,7 +174,7 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 			}
 		}
 		if (rep)
-			throw new DadosException(new ErroDeDominio(8, Usuario.class, "O CPF é inválido!"));
+			throw new DadosException(new ErroDeDominio(8, Funcionario.class, "O CPF é inválido!"));
 
 		int soma = 0;
 		int resto = 0;
@@ -187,7 +187,7 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 			resto = 0;
 		if (resto != Integer.parseInt(cpf.substring(9, 10)))
 			throw new DadosException(
-					new ErroDeDominio(9, Usuario.class, "O CPF no primeiro digito verificador é inválido!"));
+					new ErroDeDominio(9, Funcionario.class, "O CPF no primeiro digito verificador é inválido!"));
 		soma = 0;
 		for (int i = 1; i <= 10; i++) {
 			soma += Integer.parseInt(cpf.substring(i - 1, i)) * (12 - i);
@@ -197,14 +197,14 @@ public class Usuario implements IDados, Comparable<Usuario>, Serializable, IDado
 			resto = 0;
 		if (resto != Integer.parseInt(cpf.substring(10, 11)))
 			throw new DadosException(
-					new ErroDeDominio(10, Usuario.class, "O CPF no segundo digito verificador é inválido!"));
+					new ErroDeDominio(10, Funcionario.class, "O CPF no segundo digito verificador é inválido!"));
 
 	}
 
 	@RegraDeDominio
 	private static void validarCompra(Compra compra) throws DadosException {
 		if (compra == null)
-			throw new DadosException(new ErroDeDominio(11, Usuario.class, "Compra nula é inválida."));
+			throw new DadosException(new ErroDeDominio(11, Funcionario.class, "Compra nula é inválida."));
 	}
 
 	/**

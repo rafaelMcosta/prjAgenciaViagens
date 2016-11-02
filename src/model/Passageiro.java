@@ -61,7 +61,6 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 		this.passagens = new TreeSet<Passagem>();
 	}
 
-
 	@Override
 	public String toString() {
 		return "Passageiro [nome=" + nome + ", dtNascimento=" + dtNascimento + ", cpf=" + cpf + ", passaporte="
@@ -169,13 +168,14 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 		cpf = cpf.replace("-", "");
 		cpf = cpf.replace(".", "");
 		if (cpf == null || cpf.length() == 0)
-			throw new DadosException(new ErroDeDominio(3, Usuario.class, "O CPF não pode ser nulo!"));
+			throw new DadosException(new ErroDeDominio(3, Passageiro.class, "O CPF não pode ser nulo!"));
 		if (cpf.length() != TAMANHO_CPF)
-			throw new DadosException(new ErroDeDominio(4, Usuario.class, "O CPF não está com todos os seus digitos!"));
+			throw new DadosException(
+					new ErroDeDominio(4, Passageiro.class, "O CPF não está com todos os seus digitos!"));
 		for (int i = 0; i < cpf.length(); i++)
 			if (!Character.isDigit(cpf.charAt(i)))
 				throw new DadosException(
-						new ErroDeDominio(5, Usuario.class, "O CPF na posição " + (i + 1) + " não é numérico!"));
+						new ErroDeDominio(5, Passageiro.class, "O CPF na posição " + (i + 1) + " não é numérico!"));
 
 		boolean rep = false;
 		for (int i = 1; i < cpf.length(); i++) {
@@ -187,7 +187,7 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 			}
 		}
 		if (rep)
-			throw new DadosException(new ErroDeDominio(6, Usuario.class, "O CPF é inválido!"));
+			throw new DadosException(new ErroDeDominio(6, Passageiro.class, "O CPF é inválido!"));
 
 		int soma = 0;
 		int resto = 0;
@@ -200,7 +200,7 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 			resto = 0;
 		if (resto != Integer.parseInt(cpf.substring(9, 10)))
 			throw new DadosException(
-					new ErroDeDominio(7, Usuario.class, "O CPF no primeiro digito verificador é inválido!"));
+					new ErroDeDominio(7, Passageiro.class, "O CPF no primeiro digito verificador é inválido!"));
 		soma = 0;
 		for (int i = 1; i <= 10; i++) {
 			soma += Integer.parseInt(cpf.substring(i - 1, i)) * (12 - i);
@@ -210,7 +210,7 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 			resto = 0;
 		if (resto != Integer.parseInt(cpf.substring(10, 11)))
 			throw new DadosException(
-					new ErroDeDominio(8, Usuario.class, "O CPF no segundo digito verificador é inválido!"));
+					new ErroDeDominio(8, Passageiro.class, "O CPF no segundo digito verificador é inválido!"));
 
 	}
 
@@ -219,8 +219,7 @@ public class Passageiro implements IDados, Comparable<Passageiro>, Serializable,
 		if (passaporte == null || passaporte.length() == 0)
 			throw new DadosException(new ErroDeDominio(9, Passageiro.class, "O Passaporte não pode ser nulo!"));
 		if (passaporte.length() != TAMANHO_PASSAPORTE)
-			throw new DadosException(
-					new ErroDeDominio(10, Passageiro.class, "O Passaporte deve possuir 9 digítos!"));
+			throw new DadosException(new ErroDeDominio(10, Passageiro.class, "O Passaporte deve possuir 9 digítos!"));
 		for (int i = 0; i < passaporte.length(); i++) {
 			if (!Character.isLetterOrDigit(passaporte.charAt(i)))
 				throw new DadosException(new ErroDeDominio(11, Passageiro.class,
