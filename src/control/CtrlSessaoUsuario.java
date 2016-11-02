@@ -35,8 +35,11 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	/**
 	 * Referência para o controlador do caso de uso "Manter Aeroportos"
 	 */
-	private CtrlManterAeroportos ctrlAeroportos;
-	
+	private CtrlManterAeroportos ctrlAeroportos;	
+	/**
+	 * Referência para o controlador do caso de uso "Manter Funcionarios"
+	 */
+	private CtrlManterFuncionarios ctrlFuncionarios;
 	/**
 	 * Referência para a UI principal do programa
 	 */
@@ -135,6 +138,22 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		if (this.ctrlAeroportos != null)
 			this.ctrlAeroportos.terminar();
 		this.ctrlAeroportos = null;
+	}
+	
+	/**
+	 * 
+	 */
+	public void iniciarCasoDeUsoManterFuncionarios() throws ControleException, DadosException {
+		this.ctrlFuncionarios = new CtrlManterFuncionarios(this);
+	}
+
+	/**
+	 * 
+	 */
+	public void terminarCasoDeUsoManterFuncionarios() throws ControleException {
+		if (this.ctrlFuncionarios != null)
+			this.ctrlFuncionarios.terminar();
+		this.ctrlFuncionarios = null;
 	}
 	
 	

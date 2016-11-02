@@ -5,14 +5,14 @@ import org.joda.time.LocalDate;
 import control.util.ControleException;
 import control.util.ErroDeControle;
 import control.util.ICtrlCasoDeUso;
-import model.Passageiro;
+import model.Funcionario;
 import model.dao.DAO;
 import model.dao.IDAO;
 import model.util.DadosException;
-import viewer.UIPassageiro;
+import viewer.UIFuncionario;
 import viewer.ViewerManager;
 
-public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
+public class CtrlIncluirFuncionario implements ICtrlCasoDeUso{
 	//
 	// ATRIBUTOS
 	//
@@ -28,25 +28,25 @@ public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
 	}
 
 	/**
-	 * Referência para o controlador do caso de uso Manter Passageiros.
+	 * Referência para o controlador do caso de uso Manter Funcionarios.
 	 */
-	private final CtrlManterPassageiros ctrlManterPassageiros;
+	private final CtrlManterFuncionarios ctrlManterFuncionarios;
 
 	/**
-	 * Referência para a UI Passageiro que permitirá a inclusão e alteração do
-	 * ModeloAeronave
+	 * Referência para a UI Funcionarios que permitirá a inclusão e alteração do
+	 * Funcionario
 	 */
-	private UIPassageiro uiPassageiro;
+	private UIFuncionario uiFuncionario;
 
 	/**
-	 * Referência para o objeto Passageiro sendo manipulado
+	 * Referência para o objeto Funcionario sendo manipulado
 	 */
-	private Passageiro atual;
+	private Funcionario atual;
 
 	/**
-	 * Referência para o objeto DaoPassageiro
+	 * Referência para o objeto DaoFuncionario
 	 */
-	private IDAO<Passageiro> dao = (IDAO<Passageiro>) DAO.getDAO(Passageiro.class);
+	private IDAO<Funcionario> dao = (IDAO<Funcionario>) DAO.getDAO(Funcionario.class);
 
 	/**
 	 * Atributo que indica qual operação está em curso
@@ -58,11 +58,11 @@ public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
 	//
 
 	/**
-	 * Construtor da classe CtrlIncluirPassageiro
+	 * Construtor da classe CtrlIncluirFuncionario
 	 */
-	public CtrlIncluirPassageiro(CtrlManterPassageiros ctrl) throws DadosException, ControleException {
+	public CtrlIncluirFuncionario(CtrlManterFuncionarios ctrl) throws DadosException, ControleException {
 		// Guardo a referência para o controlador do programa
-		this.ctrlManterPassageiros = ctrl;
+		this.ctrlManterFuncionarios = ctrl;
 		// Iniciando o caso de uso
 		this.iniciar();
 	}
@@ -74,9 +74,9 @@ public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
 		// Indico que o controlador de caso de uso está incluindo
 		this.setStatus(Status.INCLUINDO);
 		// Crio e abro a janela de cadastro
-		this.uiPassageiro = (UIPassageiro) ViewerManager.obterViewer(this, UIPassageiro.class);
+		this.uiFuncionario = (UIFuncionario) ViewerManager.obterViewer(this, UIFuncionario.class);
 		// Solicito à interface que carregue os objetos
-		this.uiPassageiro.exibir();
+		this.uiFuncionario.exibir();
 	}
 
 	/** 
@@ -85,14 +85,14 @@ public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
 	public void terminar() throws DadosException, ControleException {
 		if (this.status == Status.ENCERRADO)
 			return;
-		// Não há Passageiro em manipulação
+		// Não há Funcionario em manipulação
 		this.atual = null;
 		// Fecho a UI
-		this.uiPassageiro.fechar();
+		this.uiFuncionario.fechar();
 		// Informo que o controlador está disponível
 		this.setStatus(Status.ENCERRADO);
 		// Notifico ao controlador do programa o término deste caso de uso
-		ctrlManterPassageiros.terminarCasoDeUsoIncluirPassageiro();
+		ctrlManterFuncionarios.terminarCasoDeUsoIncluirFuncionario();
 	}
 
 	/** 
@@ -109,14 +109,14 @@ public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
 	/** 
 	 * 
 	 */
-	public void incluir(String nome, LocalDate dtNascimento, String cpf, String passaporte)
+	public void incluir(String login, String senha, String cpf)
 			throws DadosException, ControleException {
 		// Se o controlador não tinha ativado uma inclusao, não faço nada!
 		if (this.status != Status.INCLUINDO)
 			throw new ControleException(new ErroDeControle("Não é possível concluir uma operação de inclusão"));
-		// Crio um novo objeto Passageiro
-		this.atual = new Passageiro(nome, dtNascimento, cpf, passaporte);
-		// Salvo o objeto Passageiro usando o DAO
+		// Crio um novo objeto Funcionario
+		this.atual = new Funcionario(login, senha, cpf);
+		// Salvo o objeto Funcionario usando o DAO
 		dao.salvar(this.atual);
 		// Termino o caso de uso
 		this.terminar();
@@ -139,4 +139,5 @@ public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
 		Status.validarTransicaoStatus(this.status, novo);
 		this.status = novo;
 	}
+
 }

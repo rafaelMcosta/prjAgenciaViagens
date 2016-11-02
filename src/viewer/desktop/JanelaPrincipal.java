@@ -58,11 +58,34 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 	public void criarUI() {
 		setTitle("Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 188);
+		setBounds(100, 100, 400, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JButton btnFuncionarios = new JButton("Funcionarios");
+		btnFuncionarios.setIcon(
+				new ImageIcon(JanelaPrincipal.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
+		btnFuncionarios.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					ctrlPrg.iniciarCasoDeUsoManterFuncionarios();
+				} catch (ControleException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				} catch (DadosException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		btnFuncionarios.setBounds(190, 84, 170, 55);
+		contentPane.add(btnFuncionarios);
 
 		JButton btnPassageiros = new JButton("Passageiros");
 		btnPassageiros.setIcon(
@@ -137,7 +160,7 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 		});
 		btnSair.setIcon(new ImageIcon(
 				JanelaPrincipal.class.getResource("/com/sun/java/swing/plaf/windows/icons/HardDrive.gif")));
-		btnSair.setBounds(190, 84, 170, 55);
+		btnSair.setBounds(190, 157, 170, 55);
 		contentPane.add(btnSair);
 	}
 

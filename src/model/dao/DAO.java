@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import model.Aeroporto;
+import model.Funcionario;
 import model.ModeloAeronave;
 import model.Passageiro;
 import model.util.DadosException;
@@ -62,6 +63,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 		IDAOSerializavel daoModeloAeronave = (IDAOSerializavel) DAO.getDAO(ModeloAeronave.class);
 		IDAOSerializavel daoPassageiro = (IDAOSerializavel) DAO.getDAO(Passageiro.class);
 		IDAOSerializavel daoAeroporto = (IDAOSerializavel) DAO.getDAO(Aeroporto.class);
+		IDAOSerializavel daoFuncionario = (IDAOSerializavel) DAO.getDAO(Funcionario.class);
 
 		//
 		// Recuperação dos objetos serializados no arquivo c:/dados.dat
@@ -75,6 +77,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 			daoModeloAeronave.recuperarObjetos(ois);
 			daoPassageiro.recuperarObjetos(ois);
 			daoAeroporto.recuperarObjetos(ois);
+			daoFuncionario.recuperarObjetos(ois);
 			// Fechando o arquivo
 			ois.close();
 		} catch (FileNotFoundException e) {
@@ -94,6 +97,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 		IDAOSerializavel daoModeloAeronave = (IDAOSerializavel) DAO.getDAO(ModeloAeronave.class);
 		IDAOSerializavel daoPassageiro = (IDAOSerializavel) DAO.getDAO(Passageiro.class);
 		IDAOSerializavel daoAeroporto = (IDAOSerializavel) DAO.getDAO(Aeroporto.class);
+		IDAOSerializavel daoFuncionario = (IDAOSerializavel) DAO.getDAO(Funcionario.class);
 
 		try {
 			// Abrindo o arquivo c:/dados.dat para escrita
@@ -103,6 +107,7 @@ public class DAO<T extends IDados> implements IDAO<T>, IDAOSerializavel {
 			daoModeloAeronave.salvarObjetos(oos);
 			daoPassageiro.salvarObjetos(oos);
 			daoAeroporto.salvarObjetos(oos);
+			daoFuncionario.salvarObjetos(oos);
 			// Fechando e salvando o arquivo
 			oos.close();
 		} catch (IOException e) {
