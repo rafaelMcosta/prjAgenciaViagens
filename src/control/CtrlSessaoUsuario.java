@@ -2,11 +2,15 @@ package control;
 
 import model.Funcionario;
 import model.dao.DAO;
+import model.dao.IDAO;
 import model.util.DadosException;
 import viewer.UILogin;
 import viewer.UIPrincipal;
 import viewer.ViewerManager;
 import viewer.desktop.JanelaPrincipal;
+
+import java.util.List;
+
 import control.util.ControleException;
 import control.util.ICtrlCasoDeUso;
 
@@ -37,7 +41,7 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	/**
 	 * Referência para o controlador do caso de uso "Manter Aeroportos"
 	 */
-	private CtrlManterAeroportos ctrlAeroportos;	
+	private CtrlManterAeroportos ctrlAeroportos;
 	/**
 	 * Referência para o controlador do caso de uso "Manter Funcionarios"
 	 */
@@ -46,12 +50,12 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	 * Referência para o funcionario(usuario)
 	 */
 	private Funcionario funcionario;
-	
+
 	/**
 	 * Referência para a UI principal do programa
 	 */
 	private UIPrincipal uiPrincipal;
-	
+
 	/**
 	 * Referência para a UI login do programa
 	 */
@@ -73,10 +77,11 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	 */
 	@Override
 	public void iniciar() {
-		
+
 		this.uiLogin = (UILogin) ViewerManager.obterViewer(this, UILogin.class);
 		this.uiLogin.exibir();
-		
+		DAO.inicializarDAOs();
+
 		// Cria e apresenta a janela principal. Observe que não estamos
 		// instanciando um objeto JanelaPrincipal
 		// diretamente; ou seja, não estamos fazendo "this.uiPrincipal = new
@@ -84,13 +89,14 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		// Estamos utilizando o método estático "obterViewer" para retornar qual
 		// é a implementação
 		// de UIPrincipal que iremos utilizar.
-		/*this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this, UIPrincipal.class);
-
-		// Inicializa os DAOs
-		DAO.inicializarDAOs();
-
-		// Solicita a exibição da uiPrincipal
-		this.uiPrincipal.exibir();*/
+		/*
+		 * this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this,
+		 * UIPrincipal.class);
+		 * 
+		 * // Inicializa os DAOs DAO.inicializarDAOs();
+		 * 
+		 * // Solicita a exibição da uiPrincipal this.uiPrincipal.exibir();
+		 */
 	}
 
 	/*
@@ -104,6 +110,13 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		DAO.fecharDAOs();
 		// Método estático da classe System que encerra o programa
 		System.exit(0);
+	}
+
+	public void validarLogin(String login, String senha) throws DadosException {
+		IDAO func = DAO.getDAO(Funcionario.class);
+		Funcionario funcionario = (Funcionario) func.recuperarPelaChave(login);
+		if (funcionario.getChave().equals(login) && funcionario.getSenha().equals(senha))
+			this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this, UIPrincipal.class);
 	}
 
 	/**
@@ -155,7 +168,7 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 			this.ctrlAeroportos.terminar();
 		this.ctrlAeroportos = null;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -171,8 +184,7 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 			this.ctrlFuncionarios.terminar();
 		this.ctrlFuncionarios = null;
 	}
-	
-	
+
 	/**
 	 * O método main corresponde ao ponto inicial de execução de um programa em
 	 * Java.

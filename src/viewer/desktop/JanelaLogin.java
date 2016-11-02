@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import control.CtrlSessaoUsuario;
+import model.util.DadosException;
 import viewer.UILogin;
 
 /**
@@ -117,7 +119,11 @@ public class JanelaLogin extends JFrame implements UILogin {
 	public void solicitarValidarLogin() {
 		String login = tfLogin.getText();
 		String senha = tfSenha.getText();
-		
+		try {
+			this.ctrlPrg.validarLogin(login, senha);
+		} catch (DadosException e) {
+			JOptionPane.showMessageDialog(null, "Usuario e/ou senha inválidos");
+		}
 	}
 
 	@Override
