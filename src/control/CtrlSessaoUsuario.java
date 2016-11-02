@@ -1,7 +1,9 @@
 package control;
 
+import model.Funcionario;
 import model.dao.DAO;
 import model.util.DadosException;
+import viewer.UILogin;
 import viewer.UIPrincipal;
 import viewer.ViewerManager;
 import viewer.desktop.JanelaPrincipal;
@@ -41,9 +43,19 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	 */
 	private CtrlManterFuncionarios ctrlFuncionarios;
 	/**
+	 * Referência para o funcionario(usuario)
+	 */
+	private Funcionario funcionario;
+	
+	/**
 	 * Referência para a UI principal do programa
 	 */
 	private UIPrincipal uiPrincipal;
+	
+	/**
+	 * Referência para a UI login do programa
+	 */
+	private UILogin uiLogin;
 
 	//
 	// MÉTODOS
@@ -61,6 +73,10 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	 */
 	@Override
 	public void iniciar() {
+		
+		this.uiLogin = (UILogin) ViewerManager.obterViewer(this, UILogin.class);
+		this.uiLogin.exibir();
+		
 		// Cria e apresenta a janela principal. Observe que não estamos
 		// instanciando um objeto JanelaPrincipal
 		// diretamente; ou seja, não estamos fazendo "this.uiPrincipal = new
@@ -68,13 +84,13 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		// Estamos utilizando o método estático "obterViewer" para retornar qual
 		// é a implementação
 		// de UIPrincipal que iremos utilizar.
-		this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this, UIPrincipal.class);
+		/*this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this, UIPrincipal.class);
 
 		// Inicializa os DAOs
 		DAO.inicializarDAOs();
 
 		// Solicita a exibição da uiPrincipal
-		this.uiPrincipal.exibir();
+		this.uiPrincipal.exibir();*/
 	}
 
 	/*
