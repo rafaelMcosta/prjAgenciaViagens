@@ -47,7 +47,7 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	 */
 	private CtrlManterFuncionarios ctrlFuncionarios;
 	/**
-	 * Referência para o funcionario(usuario)
+	 * Referência para o funcionario(usuario) que fará login no sistema
 	 */
 	private Funcionario funcionario;
 
@@ -80,8 +80,8 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 
 		this.uiLogin = (UILogin) ViewerManager.obterViewer(this, UILogin.class);
 		this.uiLogin.exibir();
-		DAO.inicializarDAOs();
 
+		DAO.inicializarDAOs();
 		// Cria e apresenta a janela principal. Observe que não estamos
 		// instanciando um objeto JanelaPrincipal
 		// diretamente; ou seja, não estamos fazendo "this.uiPrincipal = new
@@ -89,14 +89,18 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		// Estamos utilizando o método estático "obterViewer" para retornar qual
 		// é a implementação
 		// de UIPrincipal que iremos utilizar.
-		/*
-		 * this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this,
-		 * UIPrincipal.class);
-		 * 
-		 * // Inicializa os DAOs DAO.inicializarDAOs();
-		 * 
-		 * // Solicita a exibição da uiPrincipal this.uiPrincipal.exibir();
-		 */
+
+		
+		/* this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this,
+		 UIPrincipal.class);
+		 
+		 // Inicializa os DAOs DAO.inicializarDAOs(); 
+		 DAO.inicializarDAOs();
+		 
+		 // Solicita a exibição da uiPrincipal 
+		 this.uiPrincipal.exibir();*/
+		 
+
 	}
 
 	/*
@@ -112,11 +116,26 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		System.exit(0);
 	}
 
+	/**
+	 * Recupero o funcionario que esta logado no sistema
+	 * 
+	 * @return
+	 */
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
 	public void validarLogin(String login, String senha) throws DadosException {
-		IDAO func = DAO.getDAO(Funcionario.class);
-		Funcionario funcionario = (Funcionario) func.recuperarPelaChave(login);
-		if (funcionario.getChave().equals(login) && funcionario.getSenha().equals(senha))
+		// Recupero o DAO de funcionarios para validar o login
+		IDAO funcionarios = DAO.getDAO(Funcionario.class);
+		// recupero o unico funcionario pelo login
+		this.funcionario = (Funcionario) funcionarios.recuperarPelaChave(login);
+		// se a senha confere, inicio a tela principal da aplicação
+		if (funcionario.getSenha().equals(senha)) {
+			this.uiLogin.fechar();
 			this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this, UIPrincipal.class);
+			this.uiPrincipal.exibir();
+		}
 	}
 
 	/**

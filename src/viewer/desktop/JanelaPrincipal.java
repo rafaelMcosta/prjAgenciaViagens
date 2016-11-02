@@ -58,7 +58,8 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 	public void criarUI() {
 		setTitle("Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 300);
+		setResizable(false);
+		setBounds(100, 100, 375, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

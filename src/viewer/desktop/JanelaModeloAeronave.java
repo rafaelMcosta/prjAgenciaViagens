@@ -81,6 +81,7 @@ public class JanelaModeloAeronave extends JFrame implements UIModeloAeronave {
 	public void criarUI() {
 		setTitle("Modelo de Aeronave");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 450, 178);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

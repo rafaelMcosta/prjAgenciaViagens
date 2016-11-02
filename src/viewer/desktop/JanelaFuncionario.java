@@ -90,6 +90,7 @@ public class JanelaFuncionario extends JFrame implements UIFuncionario{
 	public void criarUI() {
 		setTitle("Funcionario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 450, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

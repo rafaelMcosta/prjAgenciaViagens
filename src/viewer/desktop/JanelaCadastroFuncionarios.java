@@ -59,6 +59,7 @@ public class JanelaCadastroFuncionarios extends JFrame implements UICadastroFunc
 	public void criarUI() {
 		setTitle("Funcionarios");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 619, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

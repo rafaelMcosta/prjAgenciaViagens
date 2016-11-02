@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -41,7 +42,7 @@ public class JanelaLogin extends JFrame implements UILogin {
 	/**
 	 * TextField para a senha
 	 */
-	private JTextField tfSenha;
+	private JPasswordField pfSenha;
 
 	/**
 	 * Cria o Frame
@@ -56,6 +57,7 @@ public class JanelaLogin extends JFrame implements UILogin {
 	public void criarUI() {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 300, 150);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -74,11 +76,13 @@ public class JanelaLogin extends JFrame implements UILogin {
 		tfLogin.setBounds(70, 8, 200, 20);
 		contentPane.add(tfLogin);
 		tfLogin.setColumns(10);
+		tfLogin.setText("admin");
 
-		tfSenha = new JTextField();
-		tfSenha.setBounds(70, 45, 200, 20);
-		contentPane.add(tfSenha);
-		tfSenha.setColumns(10);
+		pfSenha = new JPasswordField();
+		pfSenha.setBounds(70, 45, 200, 20);
+		contentPane.add(pfSenha);
+		pfSenha.setColumns(10);
+		pfSenha.setText("12345678");
 		
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
@@ -102,7 +106,7 @@ public class JanelaLogin extends JFrame implements UILogin {
 	@Override
 	public void limpar() {
 		this.tfLogin.setText(null);
-		this.tfSenha.setText(null);
+		this.pfSenha.setText(null);
 	}
 
 	@Override
@@ -118,7 +122,7 @@ public class JanelaLogin extends JFrame implements UILogin {
 	@Override
 	public void solicitarValidarLogin() {
 		String login = tfLogin.getText();
-		String senha = tfSenha.getText();
+		String senha = String.valueOf(pfSenha.getPassword());
 		try {
 			this.ctrlPrg.validarLogin(login, senha);
 		} catch (DadosException e) {
@@ -128,7 +132,6 @@ public class JanelaLogin extends JFrame implements UILogin {
 
 	@Override
 	public void solicitarEncerrarLogin() {
-		// TODO Auto-generated method stub
-
+		this.ctrlPrg.terminar();
 	}
 }
