@@ -152,6 +152,27 @@ public class JanelaPrincipal extends JFrame implements UIPrincipal {
 		});
 		btnAeroportos.setBounds(10, 84, 170, 55);
 		contentPane.add(btnAeroportos);
+		
+		JButton btnPlanosVoos = new JButton("Planos Voos");
+		btnPlanosVoos.setIcon(
+				new ImageIcon(JanelaPrincipal.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
+		btnPlanosVoos.addActionListener(new ActionListener() {
+			// Método acionado quando o botão "Planos Voos"
+			// for pressionado (Método de Callback).
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					ctrlPrg.iniciarCasoDeUsoManterPlanosVoos();
+				} catch (ControleException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				} catch (DadosException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
+				}
+			}
+		});
+		btnPlanosVoos.setBounds(10, 157, 170, 55);
+		contentPane.add(btnPlanosVoos);
 
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {

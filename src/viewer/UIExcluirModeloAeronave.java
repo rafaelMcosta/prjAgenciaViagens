@@ -13,5 +13,5 @@ public interface UIExcluirModeloAeronave extends UI {
 	/**
 	 * Atualiza os campos na UI
 	 */
-	public abstract void atualizarCampos(String descricao, int capacidade);
+	public abstract void atualizarCampos(String descricao);
 }

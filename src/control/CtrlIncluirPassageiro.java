@@ -34,7 +34,7 @@ public class CtrlIncluirPassageiro implements ICtrlCasoDeUso {
 
 	/**
 	 * Referência para a UI Passageiro que permitirá a inclusão e alteração do
-	 * ModeloAeronave
+	 * Passageiro
 	 */
 	private UIPassageiro uiPassageiro;
 

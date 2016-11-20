@@ -82,7 +82,7 @@ public class CtrlExcluirModeloAeronave implements ICtrlCasoDeUso {
 		this.uiExcluirModeloAeronave = (UIExcluirModeloAeronave) ViewerManager.obterViewer(this,
 				UIExcluirModeloAeronave.class);
 		// Solicito à interface que atualize os campos
-		this.uiExcluirModeloAeronave.atualizarCampos(this.atual.getDescricao(), this.atual.getCapacidade());
+		this.uiExcluirModeloAeronave.atualizarCampos(this.atual.getDescricao());
 		// Solicito à interface que carregue os objetos
 		this.uiExcluirModeloAeronave.exibir();
 	}

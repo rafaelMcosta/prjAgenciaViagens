@@ -47,6 +47,10 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 	 */
 	private CtrlManterFuncionarios ctrlFuncionarios;
 	/**
+	 * Referência para o controlador do caso de uso "Manter PlanosVoos"
+	 */
+	private CtrlManterPlanosVoos ctrlPlanosVoos;
+	/**
 	 * Referência para o funcionario(usuario) que fará login no sistema
 	 */
 	private Funcionario funcionario;
@@ -90,16 +94,14 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		// é a implementação
 		// de UIPrincipal que iremos utilizar.
 
-		
-		/* this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this,
-		 UIPrincipal.class);
-		 
-		 // Inicializa os DAOs DAO.inicializarDAOs(); 
-		 DAO.inicializarDAOs();
-		 
-		 // Solicita a exibição da uiPrincipal 
-		 this.uiPrincipal.exibir();*/
-		 
+		/*
+		 * this.uiPrincipal = (UIPrincipal) ViewerManager.obterViewer(this,
+		 * UIPrincipal.class);
+		 * 
+		 * // Inicializa os DAOs DAO.inicializarDAOs(); DAO.inicializarDAOs();
+		 * 
+		 * // Solicita a exibição da uiPrincipal this.uiPrincipal.exibir();
+		 */
 
 	}
 
@@ -202,6 +204,22 @@ public class CtrlSessaoUsuario implements ICtrlCasoDeUso {
 		if (this.ctrlFuncionarios != null)
 			this.ctrlFuncionarios.terminar();
 		this.ctrlFuncionarios = null;
+	}
+
+	/**
+	 * 
+	 */
+	public void iniciarCasoDeUsoManterPlanosVoos() throws ControleException, DadosException {
+		this.ctrlPlanosVoos = new CtrlManterPlanosVoos(this);
+	}
+
+	/**
+	 * 
+	 */
+	public void terminarCasoDeUsoManterPlanosVoos() throws ControleException {
+		if (this.ctrlPlanosVoos != null)
+			this.ctrlPlanosVoos.terminar();
+		this.ctrlPlanosVoos = null;
 	}
 
 	/**
